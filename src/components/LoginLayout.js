@@ -1,5 +1,5 @@
 import BG from '../assets/icons/bg.jpeg';
-import Logo from '../assets/icons/logo_real.png';
+import Logo from '../assets/icons/icon.png';
 
 const LoginLayout = ({ children }) => {
   return (
@@ -7,7 +7,7 @@ const LoginLayout = ({ children }) => {
     <div className='login w-full h-screen grid md:grid-cols-2 grid-cols-1'>
       <div className='login__left'>
         <img
-          src={BG}
+          src={Logo}
           alt=''
          
           style={{
@@ -30,7 +30,9 @@ const LoginLayout = ({ children }) => {
          'bottom':'10px'
        }}
       >
-        <img src={Logo} alt='klutchh logo' className='w-20 md:w-16' />
+        <img src={Logo} alt='klutchh logo' className='w-20 md:w-16' style={{
+          'width':'40px'
+        }} />
       </div>
     </div>
   </>

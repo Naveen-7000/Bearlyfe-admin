@@ -1,13 +1,38 @@
 
-import Logo from '../../assets/icons/logo_real.png';
+import Logo from '../../assets/icons/icon.png';
 import LoginLayout from '../LoginLayout';
+import { useState } from 'react';
+import {loginUser} from '../../redux/actions/auth';
+import { Redirect } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ auth, loginUser }) => {
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // send async request
+    loginUser(user);
+  };
+
+  if (auth.access_token) {
+    return <Redirect to='/' />;
+  }
   
 
   return (
     <LoginLayout>
     <form
+    onSubmit={(e) => handleSubmit(e)}
       className='form flex flex-col w-full '
       style={{
         'position':'absolute',
@@ -19,11 +44,14 @@ const Login = () => {
       <span style={{
         'fontSize':'14px',
         'color':'grey',      }}>BLOGS<br/></span>
-      <span className='text-3xl font-semibold mb-4'>
+      <span className='text-3xl font-semibold mb-4' style={{
+        'textAlign':'center',
+      }}>
         <img src={Logo} alt='klutchh logo' style={{
-          'width':'80px',
-          'height':'15px'
+          'width':'25px',
+          'alignItems':'center'
         }} />
+        Bearlyfe
       </span>
     
       {/* email */}
@@ -57,8 +85,8 @@ const Login = () => {
           id='email'
           name='email'
           type='text'
-          value={''}
-          
+          value={user.email}
+          onChange={(e) => handleChange(e)}
           required
         />
       </div>
@@ -92,8 +120,8 @@ const Login = () => {
           id='password'
           name='password'
           type='password'
-          value={''}
-          
+          value={user.password}
+          onChange={(e) => handleChange(e)}
           required
         />
       </div>
